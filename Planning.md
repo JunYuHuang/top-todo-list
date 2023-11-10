@@ -64,7 +64,15 @@
 
 ## App Logic and Pseudocode
 
-- TODO
+- options for opening a dialog / modal form for creating or editing a todo using only vanilla JS without any front-end library or framework
+  - method 1
+    - create a dialog in a form hardcoded in the html
+    - whenever user clicks on a button to create or edit a todo, modify the existing dialog form with values either set to default values (when creating a new todo) or set to the existing todo's values (when editing a new todo)
+  - method 2
+    - hardcode a template that contains a dialog form in the html
+    - build forms dynamically and inject them into the DOM from the template based on what the user clicked (create or edit)
+  - method 3
+    - web components??
 
 ## Partial Code and Expanded Pseudocode
 
@@ -132,14 +140,22 @@
 
 - `displayController` module
   - fields
+    - `currentProjectId`: string
+    - `todoForm`: reference to Todo create / edit form root container element
     - TODO
-  - renderTodos
+  - renderProjectsSelector()
     - TODO
-  - renderProjects
+  - renderTodos()
     - TODO
-  - handleCreateTodoForm
+  - renderProjects()
     - TODO
-  - handleUpdateTodoForm
+  - handleTodoForm()
     - TODO
-  - handleDeleteButton
+  - openTodoForm()
+    - TODO
+  - closeTodoForm()
+    - TODO
+  - handleDeleteButton()
+    - TODO
+  - handleEditButton()
     - TODO

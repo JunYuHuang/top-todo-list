@@ -11,6 +11,14 @@
 - [ ] Step 7
 - [ ] Step 8
 
-## Personal TODOs
+## High Level TODOs
 
-- [ ] a
+- [ ] Set up Webpack config
+- [ ] Install (npm) dependencies (`date-fns`, etc.)
+- [ ] Write core modules and classes
+- [ ] Write UI logic and handlers
+- [ ] Test app
+
+## Low Level TODOs
+
+- [ ] TODO
