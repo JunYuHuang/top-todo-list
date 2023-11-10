@@ -1,0 +1,145 @@
+# Planning Notes
+
+## MVP Requirements
+
+- data requirements
+  - app has many `project`s
+  - each `project`
+    - `id`: unique string or int identifier
+    - `name`: string
+    - has many `todo`s
+  - each `todo`
+    - `id`: unique string or int identifier
+    - `projectId`: unique string or int identifier for the project the todo is associated with
+    - `title`: string
+    - `description`: text / string
+    - `dueDate`: (date) string
+    - `priority`: string or int
+    - `isDone`: boolean
+  - app comes with a default `Uncategorized` project
+  - each `todo` always belongs to 1 `project` only
+- UI requirements
+  - view all projects
+  - view all todos in each project
+    - at a minimum, a preview of a todo shows its `title` and `dueDate`
+  - expand a todo to see its details
+    - details shown
+      - `title`
+      - `description`
+      - `dueDate`
+      - `priority`
+      - `isDone`
+  - toggle a todo's complete state without expanding it
+  - expand a todo to edit its details
+    - open a modal form to edit its fields
+      - `title` text input
+      - `description` textarea input
+  - delete a todo
+  - create a todo
+  - create a project
+- functional requirements
+  - project functions
+    - read
+    - create
+    - serializes a project object to a JSON string
+    - deserializes a project JSON string to a project object
+  - todo functions
+    - create
+    - read
+    - update
+    - delete
+    - serializes a todo object to a JSON string
+    - deserializes a todo JSON string to a todo object
+  - web storage functions
+    - read / get projects (to load it into the app state)
+    - create / update / set projects
+    - read / get todos (to load it into the app state)
+    - create / update / delete / set todos
+- software dependency requirements
+  - Webpack config
+    - TODO
+  - use `date-fns` NPM package to handle date stuff
+  - use Web Storage API via `localStorage` to persistently store data in the browser cache
+  - use `uuid` NPM package for creating unique `id`'s
+
+## App Logic and Pseudocode
+
+- TODO
+
+## Partial Code and Expanded Pseudocode
+
+- `Project` class
+  - fields
+    - `id`: unique string identifier
+    - `name`: string
+  - constructor(args)
+  - toJSON(projectObj)
+    - static method that converts a `Project` object / instance and returns a JSON string
+  - fromJSON(projectJSON)
+    - static method that converts a `Project` JSON string and returns a `Project` object / instance
+
+- `Todo` class
+  - fields
+    - `id`: unique string identifier
+    - `projectId`: unique string identifier its associated project
+    - `title`: string
+    - `description`: text / string
+    - `dueDate`: (date) string
+    - `priority`: string or int
+    - `isDone`: boolean
+  - constructor(args)
+  - update(options)
+    - `options` is an object containing up to all the key-value pairs meant to replace the current object's field values
+    - non-pure method that only updates the fields whose new values are given in `options`
+  - toJSON(todoObj)
+    - static method that converts a `Todo` object / instance and returns a JSON string
+  - fromJSON(todoJSON)
+    - static method that converts a `Todo` JSON string and returns a `Todo` object / instance
+
+- `localStorageHelper` module
+  - localStorage API wrapper library that provides a developer friendly interface to manage `Project` and `Todo` instances
+  - getKey(storedClass, keySuffix = "List")
+    - returns the string key (stored in `localStorage`) associated with the class `storedClass` equal to `storedClass.name + "List"`
+  - getList(storedClass)
+    - returns the array of `storeClass` instances stored in `localStorage` if it exists there else an empty array
+  - storeList(storedClass, storedClassList)
+    - stringifies the array of `storedClass` instances (`storedClassList`) and stores it in localStorage
+    - returns nothing
+
+- `state` module
+  - fields
+    - `projects`: array of `Project` instances
+    - `todos`: array of `Todo` instances
+    - `getRandomId`: reference to `uuid` generater function
+    - `Project`: reference to `Project` class
+    - `Todo`: reference to `Class` class
+  - setDependencies(options)
+    - method that injects all dependencies
+  - getTodos()
+    - TODO
+  - createTodo(options)
+    - TODO
+  - updateTodo(options)
+    - TODO
+  - deleteTodo(id)
+    - TODO
+  - getProjects()
+    - TODO
+  - doesProjectExist(name)
+    - TODO
+  - createProject()
+    - TODO
+
+- `displayController` module
+  - fields
+    - TODO
+  - renderTodos
+    - TODO
+  - renderProjects
+    - TODO
+  - handleCreateTodoForm
+    - TODO
+  - handleUpdateTodoForm
+    - TODO
+  - handleDeleteButton
+    - TODO
