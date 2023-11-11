@@ -13,8 +13,8 @@
 
 ## High Level TODOs
 
-- [ ] Set up Webpack config
-- [ ] Install (npm) dependencies (`date-fns`, etc.)
+- [x] Set up basic Webpack config
+- [x] Install (npm) dependencies (`date-fns`, etc.)
 - [ ] Write core modules and classes
 - [ ] Write UI logic and handlers
 - [ ] Test app
