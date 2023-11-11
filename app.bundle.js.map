@@ -1,0 +1,1 @@
+{"version":3,"file":"app.bundle.js","mappings":"AAKAA,QAAQC,IAAI","sources":["webpack://top-todo-list/./src/index.js"],"sourcesContent":["if (process.env.NODE_ENV !== \"production\") {\r\n  console.log(\"App running in dev mode!\");\r\n}\r\n\r\n// TODO\r\nconsole.log(\"Index.js was imported!\");\r\n"],"names":["console","log"],"sourceRoot":""}
