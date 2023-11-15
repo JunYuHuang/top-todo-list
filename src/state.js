@@ -14,15 +14,25 @@ const state = function (dependencies) {
   let todos = dependencies.todos ? dependencies.todos : [];
   let currentProjectId = defaultProject.id;
 
-  const setProjectId = function (id) {
+  const getCurrentProjectId = function () {
+    return currentProjectId;
+  };
+
+  const setCurrentProjectId = function (id) {
     if (id === currentProjectId) return;
     currentProjectId = id;
   };
 
+  const isCurrentProject = function (project) {
+    return project.id === currentProjectId;
+  };
+
   const getTodos = function (filters = {}) {
-    if (!filters.projectId) return todos;
     if (filters.projectId) {
       return todos.filter((todo) => todo.projectId === filters.projectId);
+    }
+    if (filters.id) {
+      return todos.filter((todo) => todo.id === filters.id);
     }
     return todos;
   };
@@ -70,7 +80,9 @@ const state = function (dependencies) {
   };
 
   return {
-    setProjectId,
+    getCurrentProjectId,
+    setCurrentProjectId,
+    isCurrentProject,
     getTodos,
     setTodos,
     createTodo,
@@ -80,6 +92,8 @@ const state = function (dependencies) {
     setProjects,
     createProject,
     doesProjectExist,
+    projectClass,
+    todoClass,
   };
 };
 

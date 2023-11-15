@@ -7,6 +7,177 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div>hello world</div>
+    <main class="flex flex-col items-center min-h-screen bg-red-200">
+      <div class="max-w-screen-sm min-w-[200px]" id="app-root">
+        <h1 class="text-6xl uppercase mb-4 mt-4">Todo List</h1>
+        <!-- TODO - hardcode mock components here -->
+        <div class="">
+          <label for="project-id" class="">
+            <h2 class="text-2xl mb-2">Current Project</h2>
+          </label>
+          <select
+            name="project-id"
+            id="project-id"
+            class="border-black border-2 rounded-lg p-2"
+          >
+            <option selected value="project-default" class="">
+              Uncategorized
+            </option>
+          </select>
+          <br />
+          <br />
+        </div>
+        <h2 class="text-2xl mb-2">Todos</h2>
+        <button
+          type="button"
+          class="border-black border-2 rounded-lg p-2 bg-[#e9e9ed]"
+          id="new-todo-button"
+          data-button-type="new-todo"
+        >
+          New Todo
+        </button>
+        <br />
+        <div class="flex flex-col gap-y-4 mt-4" id="todos-root">
+          <div class="todo-item">
+            <div class="flex flex-row gap-x-2 mb-2">
+              <div class="">
+                <label
+                  for="is-done-todo-dummyId"
+                  class="absolute -left-[200%] h-0"
+                  >Done?</label
+                >
+                <input
+                  type="checkbox"
+                  name="is-done-todo-dummyId"
+                  id="is-done-todo-dummyId"
+                  class="border-black border-2 rounded-lg p-2"
+                  data-todo-id="todo-dummyId"
+                />
+              </div>
+              <div class="">
+                <p class="text-ellipsis">title</p>
+                <p class="text-ellipsis">dueDate</p>
+                <div
+                  class="expanded-content overflow-hidden max-h-0"
+                  data-expanded-content-id="expanded-todo-dummyId"
+                >
+                  <p class="text-ellipsis">priority</p>
+                  <p class="text-ellipsis">description</p>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="border-black border-2 rounded-lg p-2"
+              data-button-type="more"
+              data-todo-id="todo-dummyId"
+            >
+              More
+            </button>
+            <button
+              type="button"
+              class="border-black border-2 rounded-lg p-2 hidden"
+              data-button-type="less"
+              data-todo-id="todo-dummyId"
+            >
+              Less
+            </button>
+            <button
+              type="button"
+              class="border-black border-2 rounded-lg p-2"
+              data-button-type="edit"
+              data-todo-id="todo-dummyId"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="border-black border-2 rounded-lg p-2"
+              data-button-type="delete"
+              data-todo-id="todo-dummyId"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <dialog class="p-8 rounded-lg" id="todo-dialog">
+        <form action="/" method="dialog" class="" id="todo-form">
+          <h2 class="text-lg font-bold" id="todo-form-title">Todo</h2>
+          <input type="hidden" value="create" id="action-type" />
+          <input type="hidden" value="" id="todo-id" />
+          <br />
+          <div class="">
+            <label for="title" class="">Title:</label>
+            <br />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="border-black border-2 rounded-lg p-2"
+              required
+            />
+            <br />
+            <br />
+          </div>
+          <div class="">
+            <label for="due-date" class="">Due Date:</label>
+            <br />
+            <input
+              type="date"
+              name="due-date"
+              id="due-date"
+              class="border-black border-2 rounded-lg p-2"
+              required
+            />
+            <br />
+            <br />
+          </div>
+          <div class="">
+            <label for="priority" class="">Priority:</label>
+            <br />
+            <select
+              name="priority"
+              id="priority"
+              class="border-black border-2 rounded-lg p-2"
+            >
+              <option value="1" class="">1</option>
+              <option value="2" class="">2</option>
+              <option value="3" class="">3</option>
+              <option selected value="4" class="">4</option>
+            </select>
+            <br />
+            <br />
+          </div>
+          <div class="">
+            <label for="description" class="">Description:</label>
+            <br />
+            <textarea
+              name="description"
+              id="description"
+              class="border-black border-2 rounded-lg p-2"
+            ></textarea>
+            <br />
+            <br />
+          </div>
+          <button
+            type="button"
+            class="border-black border-2 rounded-lg p-2"
+            id="cancel-button"
+            data-button-type="cancel"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="border-black border-2 rounded-lg p-2"
+            id="action-button"
+            data-button-type="submit"
+          >
+            Submit
+          </button>
+        </form>
+      </dialog>
+    </main>
   </body>
 </html>

@@ -21,4 +21,8 @@
 
 ## Low Level TODOs
 
-- [ ] TODO
+- [ ] Complete `displayController.js` module
+- [x] Move hard-coded mock HTML components into `displayController` as HTML templates
+- [x] Add `priorityComponent()` to `UIComponents.js`
+- [ ] Update `index.js` to use all modules and classes
+- [ ] Test app manually
