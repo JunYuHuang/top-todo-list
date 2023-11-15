@@ -1,6 +1,7 @@
 "use strict";
+import { format } from "date-fns";
 
-export const displayController = function (dependencies) {
+const displayController = function (dependencies) {
   const datefns = dependencies.datefns;
   const state = dependencies.state;
   const localStorageHelper = dependencies.localStorageHelper;
@@ -49,13 +50,11 @@ export const displayController = function (dependencies) {
     projectIdSelect.replaceChildren(...projectElements);
   };
 
-  const renderTodos = function (
-    todos = [...defaultTodos, { priority: 4, isSelected: true }]
-  ) {
+  const renderTodos = function (todos = defaultTodos) {
     const todoElements = [];
     for (let todo of todos) {
       const args = todo.toPlainObject();
-      projectElements.push(todoComponent(args));
+      todoElements.push(todoComponent(args));
     }
     todosRootDiv.replaceChildren(...todoElements);
   };
@@ -182,6 +181,9 @@ export const displayController = function (dependencies) {
   };
 
   return {
+    renderProjects,
+    renderTodos,
+    renderPriorities,
     attachEventListeners,
   };
 };

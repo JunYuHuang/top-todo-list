@@ -5,7 +5,7 @@ const state = function (dependencies) {
   const projectClass = dependencies.projectClass;
   const todoClass = dependencies.todoClass;
   const defaultProject = new projectClass({
-    id: "todo-default",
+    id: "project-defaultId",
     name: "Uncategorized",
   });
   let projects = dependencies.projects
