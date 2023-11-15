@@ -1,6 +1,6 @@
 "use strict";
 
-const displayController = function (dependencies) {
+export const displayController = function (dependencies) {
   const datefns = dependencies.datefns;
   const state = dependencies.state;
   const localStorageHelper = dependencies.localStorageHelper;
@@ -92,17 +92,11 @@ const displayController = function (dependencies) {
     todoDialog.showModal();
   };
 
-  const closeTodoDialog = function () {
-    todoDialog.close();
-  };
-
   const handleProjectIdSelect = function (event) {
-    // TODO
+    // get the selected option value (projectId) from the select
+    // set the currentProjectId to that one in the state
+    // re-render the todos for the current projectId
     const element = event.target;
-  };
-
-  const isButtonElement = function (element, filters) {
-    // TODO
   };
 
   const handleNewTodoButton = function (event) {
@@ -113,15 +107,32 @@ const displayController = function (dependencies) {
   };
 
   const handleIsDoneCheckbox = function (event) {
-    // TODO
+    // get the checked value from the checkbox
+    // update the state for this existing todo with this id
+    // update the state in localStorage
+    // re-render the todos for the current project
+    const element = event.target;
+    if (element.dataset.checkboxType !== "is-done") return;
+
+    const todoId = element.dataset.todoId;
   };
 
   const handleMoreButton = function (event) {
-    // TODO
+    // do nothing if a more button was not clicked
+    // get the todo id from the clicked button
+    // expand the todo component's `.expanded-content` div
+    // by toggling the CSS class `.max-h-0` on that div
+    // hide itself (the button)
+    // show the less button associated with the same todo (by id)
   };
 
   const handleLessButton = function (event) {
-    // TODO
+    // do nothing if a less button was not clicked
+    // get the todo id from the clicked button
+    // shrink the todo component's `.expanded-content` div
+    // by toggling the CSS class `.max-h-0` on that div
+    // hide itself (the button)
+    // show the more button associated with the same todo (by id)
   };
 
   const handleEditButton = function (event) {
@@ -132,19 +143,42 @@ const displayController = function (dependencies) {
   };
 
   const handleDeleteButton = function (event) {
-    // TODO
+    // do nothing if a delete button was not clicked
+    // get the todo id from the clicked button
+    // delete the todo with this id from the state
+    // update the state in localStorage
+    // re-render the todos in the current project
   };
 
   const handleCancelButton = function (event) {
-    // TODO
+    const element = event.target;
+    if (element.dataset.buttonType !== "cancel") return;
+    todoDialog.close();
   };
 
   const handleSubmitButton = function (event) {
-    // TODO
+    // do nothing if the submit button was not clicked
+    // if the form was submitted as a create todo (has a hidden input with value "create")
+    //   create a new todo with the data in the form
+    //   update the state
+    //   update the state in local storage
+    //   if the new todo was created with a new project name
+    //     create a new project with that name
+    //     set the current project id with that new project id in the state
+    //     update the state in the local storage
+    //     re-render the projects select with that new project option selected
+    //   re-render the todos under the selected project id
   };
 
   const attachEventListeners = function (containerElement) {
-    // TODO
+    // attach the following event handlers to the `containerElement`:
+    // - click -> handleMoreButton()
+    // - click -> handleLessButton()
+    // - click -> handleEditButton()
+    // - click -> handleDeleteButton()
+    // - click -> handleNewTodoButton()
+    // - click -> handleIsDoneCheckbox() ??
+    // - change? -> handleProjectIdSelect()
   };
 
   return {
