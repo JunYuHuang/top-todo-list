@@ -10,7 +10,6 @@
     <main class="flex flex-col items-center min-h-screen bg-red-200">
       <div class="max-w-screen-sm min-w-[200px]" id="app-root">
         <h1 class="text-6xl uppercase mb-4 mt-4">Todo List</h1>
-        <!-- TODO - hardcode mock components here -->
         <div class="">
           <label for="project-id" class="">
             <h2 class="text-2xl mb-2">Current Project</h2>
@@ -20,9 +19,9 @@
             id="project-id"
             class="border-black border-2 rounded-lg p-2"
           >
-            <option selected value="project-default" class="">
+            <!-- <option selected value="project-default" class="">
               Uncategorized
-            </option>
+            </option> -->
           </select>
           <br />
           <br />
@@ -37,73 +36,11 @@
           New Todo
         </button>
         <br />
-        <div class="flex flex-col gap-y-4 mt-4" id="todos-root">
-          <div class="todo-item">
-            <div class="flex flex-row gap-x-2 mb-2">
-              <div class="">
-                <label
-                  for="is-done-todo-dummyId"
-                  class="absolute -left-[200%] h-0"
-                  >Done?</label
-                >
-                <input
-                  type="checkbox"
-                  name="is-done-todo-dummyId"
-                  id="is-done-todo-dummyId"
-                  class="border-black border-2 rounded-lg p-2"
-                  data-todo-id="todo-dummyId"
-                />
-              </div>
-              <div class="">
-                <p class="text-ellipsis">title</p>
-                <p class="text-ellipsis">dueDate</p>
-                <div
-                  class="expanded-content overflow-hidden max-h-0"
-                  data-expanded-content-id="expanded-todo-dummyId"
-                >
-                  <p class="text-ellipsis">priority</p>
-                  <p class="text-ellipsis">description</p>
-                </div>
-              </div>
-            </div>
-            <button
-              type="button"
-              class="border-black border-2 rounded-lg p-2"
-              data-button-type="more"
-              data-todo-id="todo-dummyId"
-            >
-              More
-            </button>
-            <button
-              type="button"
-              class="border-black border-2 rounded-lg p-2 hidden"
-              data-button-type="less"
-              data-todo-id="todo-dummyId"
-            >
-              Less
-            </button>
-            <button
-              type="button"
-              class="border-black border-2 rounded-lg p-2"
-              data-button-type="edit"
-              data-todo-id="todo-dummyId"
-            >
-              Edit
-            </button>
-            <button
-              type="button"
-              class="border-black border-2 rounded-lg p-2"
-              data-button-type="delete"
-              data-todo-id="todo-dummyId"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
+        <div class="flex flex-col gap-y-6 mt-4" id="todos-root"></div>
       </div>
       <dialog class="p-8 rounded-lg" id="todo-dialog">
         <form action="/" method="dialog" class="" id="todo-form">
-          <h2 class="text-lg font-bold" id="todo-form-title">Todo</h2>
+          <h2 class="text-lg font-bold" id="todo-form-header">Todo</h2>
           <input type="hidden" value="create" id="action-type" />
           <input type="hidden" value="" id="todo-id" />
           <br />
