@@ -27,6 +27,7 @@ const todoComponent = function (args) {
           name="is-done-${id}"
           id="is-done-${id}"
           class="border-black border-2 rounded-lg p-2"
+          data-checkbox-type="is-done"
           data-todo-id="${id}"
           value="${id}"
           ${isDone ? "checked" : ""}
@@ -34,7 +35,7 @@ const todoComponent = function (args) {
       </div>
       <div class="">
         <p class="text-ellipsis">${title}</p>
-        <p class="text-ellipsis">${dueDate}</p>
+        <p class="text-ellipsis">Due on ${dueDate}</p>
         <div
           class="expanded-content overflow-hidden max-h-0"
           data-expanded-content-id="expanded-${id}"
@@ -77,7 +78,7 @@ const todoComponent = function (args) {
       Delete
     </button>
   `;
-  element.insertAdjacentElement("beforeend", innerContent);
+  element.insertAdjacentHTML("beforeend", innerContent);
   return element;
 };
 
@@ -90,4 +91,4 @@ const priorityComponent = function (args) {
   return element;
 };
 
-return { projectComponent, todoComponent, priorityComponent };
+export { projectComponent, todoComponent, priorityComponent };
