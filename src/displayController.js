@@ -89,7 +89,7 @@ const displayController = function (dependencies) {
     todoTitleInput.value = "";
     todoDueDateInput.value = "";
     renderPriorities();
-    todoDescriptionInput.textContent = "";
+    todoDescriptionInput.value = "";
     todoDialog.showModal();
   };
 
@@ -104,7 +104,7 @@ const displayController = function (dependencies) {
     todoTitleInput.value = title;
     todoDueDateInput.value = dueDate;
     renderPriorities(getPrioritiesList(priority));
-    todoDescriptionInput.textContent = description;
+    todoDescriptionInput.value = description;
     todoDialog.showModal();
   };
 
@@ -206,7 +206,7 @@ const displayController = function (dependencies) {
       title: todoTitleInput.value,
       dueDate: todoDueDateInput.value,
       priority: Number.parseInt(todoPriorityInput.value),
-      description: todoDescriptionInput.textContent,
+      description: todoDescriptionInput.value,
     };
 
     const action = todoActionTypeInput.value;
