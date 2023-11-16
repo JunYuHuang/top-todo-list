@@ -29,11 +29,11 @@
   - [x] Complete `new todo` button functionality
   - [x] Complete `more` button functionality
   - [x] Complete `less` button functionality
-  - [ ] Complete `edit` button functionality
+  - [x] Complete `edit` button functionality
   - [x] Complete `delete` button functionality
   - [x] Complete `cancel` button (on form) functionality
   - [ ] Complete `submit` button (on form) functionality
-  - [ ] Fix bug with `isDone` boolean property of `Todo`'s not rendering correctly as checked or unchecked checkbox inputs in GUI
+  - [x] Fix bug with `isDone` boolean property of `Todo`'s not rendering correctly as checked or unchecked checkbox inputs in GUI
   - [ ] Update todo form to include a select dropdown for an existing project
   - [ ] Update todo form to include a text input for entering the name of a new project
   - [ ] Finish `handleSubmitButton()` function in `displayController.js`

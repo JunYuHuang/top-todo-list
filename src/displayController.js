@@ -49,7 +49,6 @@ const displayController = function (dependencies) {
     projectIdSelect.replaceChildren(...projectElements);
   };
 
-  // possibly bugged and not rendering the correct state of `isDone` boolean properties of todo's?
   const renderTodos = function (todos = defaultTodos) {
     const todoElements = [];
     for (let todo of todos) {
@@ -104,22 +103,14 @@ const displayController = function (dependencies) {
     openCreateTodoDialog();
   };
 
-  // TODO - bugged?
   const handleIsDoneCheckbox = function (event) {
-    // get the checked value from the checkbox
-    // update the state for this existing todo with this id
-    // update the state in localStorage
-    // re-render the todos for the current project
     const element = event.target;
     if (element.dataset.inputType !== "is-done-checkbox") return;
-
     const todoId = element.dataset.todoId;
     const todo = state.getTodos({ id: todoId })[0];
     const oldIsDone = todo.isDone;
     state.updateTodo({ id: todoId, isDone: !oldIsDone });
-    // console.log(
-    //   `Checkbox for todo with id '${todoId}' checked? ${element.checked}`
-    // );
+    // update the state in localStorage
   };
 
   const handleMoreButton = function (event) {

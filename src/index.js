@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== "production") {
 
 let dummyTodos = [
   new Todo({
-    id: "todo-dummyId",
+    id: "todo-dummyId1",
     projectId: "project-defaultId",
     title: "Dummy Todo Title",
     dueDate: "2024-02-02",
@@ -30,7 +30,7 @@ let dummyTodos = [
     isDone: true,
   }),
   new Todo({
-    id: "todo-dummyId",
+    id: "todo-dummyId2",
     projectId: "project-hoohee",
     title: "Hoo",
     dueDate: "2025-01-01",
