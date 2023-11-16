@@ -17,11 +17,6 @@ const todoComponent = function (args) {
   const innerContent = `
     <div class="flex flex-row gap-x-2 mb-2">
       <div class="">
-        <label
-          for="is-done-${id}"
-          class="absolute -left-[200%] h-0"
-          >Done?</label
-        >
         <input
           type="checkbox"
           name="is-done-${id}"
@@ -34,7 +29,14 @@ const todoComponent = function (args) {
         />
       </div>
       <div class="">
-        <p class="text-ellipsis ${isDone ? "line-through" : ""}">${title}</p>
+        <p class="">
+          <label
+            for="is-done-${id}"
+            class="text-ellipsis ${isDone ? "line-through" : ""}"
+          >
+            ${title}
+          </label>
+        </p>
         <p class="text-ellipsis ${
           isDone ? "line-through" : ""
         }">Due on ${dueDate}</p>
