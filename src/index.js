@@ -25,16 +25,16 @@ let dummyTodos = [
     projectId: "project-defaultId",
     title: "Dummy Todo Title",
     dueDate: "2024-02-02",
-    priority: "3",
+    priority: 3,
     description: "Dummy Todo Description",
-    isDone: false,
+    isDone: true,
   }),
   new Todo({
     id: "todo-dummyId",
     projectId: "project-hoohee",
     title: "Hoo",
     dueDate: "2025-01-01",
-    priority: "1",
+    priority: 1,
     description: "hee",
     isDone: false,
   }),
@@ -43,6 +43,7 @@ let dummyTodos = [
 let dummyProjects = [
   new Project({ id: "project-defaultId", name: "Uncategorized" }),
   new Project({ id: "project-hoohee", name: "Hoo Hee" }),
+  new Project({ id: "project-emptyId", name: "Empty" }),
 ];
 
 const appState = state({
@@ -73,7 +74,7 @@ window.addEventListener("load", function () {
   });
 
   // TESTING
-
+  appDisplayController.attachEventListeners(window);
   appDisplayController.renderProjects();
   appDisplayController.renderTodos();
 });

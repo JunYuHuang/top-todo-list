@@ -27,7 +27,7 @@ const todoComponent = function (args) {
           name="is-done-${id}"
           id="is-done-${id}"
           class="border-black border-2 rounded-lg p-2"
-          data-checkbox-type="is-done"
+          data-input-type="is-done-checkbox"
           data-todo-id="${id}"
           value="${id}"
           ${isDone ? "checked" : ""}
@@ -38,7 +38,7 @@ const todoComponent = function (args) {
         <p class="text-ellipsis">Due on ${dueDate}</p>
         <div
           class="expanded-content overflow-hidden max-h-0"
-          data-expanded-content-id="expanded-${id}"
+          id="expanded-content-${id}"
         >
           <p class="text-ellipsis">Priority ${priority}</p>
           <p class="text-ellipsis">${description}</p>
@@ -48,7 +48,8 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-button-type="more"
+      data-input-type="more-button"
+      id="more-button-${id}"
       data-todo-id="${id}"
     >
       More
@@ -56,7 +57,8 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2 hidden"
-      data-button-type="less"
+      data-input-type="less-button"
+      id="less-button-${id}"
       data-todo-id="${id}"
     >
       Less
@@ -64,7 +66,7 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-button-type="edit"
+      data-input-type="edit-button"
       data-todo-id="${id}"
     >
       Edit
@@ -72,7 +74,7 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-button-type="delete"
+      data-input-type="delete-button"
       data-todo-id="${id}"
     >
       Delete

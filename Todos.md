@@ -21,8 +21,22 @@
 
 ## Low Level TODOs
 
-- [ ] Complete `displayController.js` module
 - [x] Move hard-coded mock HTML components into `displayController` as HTML templates
 - [x] Add `priorityComponent()` to `UIComponents.js`
 - [ ] Update `index.js` to use all modules and classes
+- [ ] Complete `displayController.js` module
+  - [x] Complete `project` id select / dropdown functionality
+  - [x] Complete `new todo` button functionality
+  - [x] Complete `more` button functionality
+  - [x] Complete `less` button functionality
+  - [ ] Complete `edit` button functionality
+  - [x] Complete `delete` button functionality
+  - [x] Complete `cancel` button (on form) functionality
+  - [ ] Complete `submit` button (on form) functionality
+  - [ ] Fix bug with `isDone` boolean property of `Todo`'s not rendering correctly as checked or unchecked checkbox inputs in GUI
+  - [ ] Update todo form to include a select dropdown for an existing project
+  - [ ] Update todo form to include a text input for entering the name of a new project
+  - [ ] Finish `handleSubmitButton()` function in `displayController.js`
+- [ ] Add loading from `localStorage` functionality
+- [ ] Add updating store in `localStorage` functionality on state change
 - [ ] Test app manually

@@ -2,7 +2,6 @@
 import { format } from "date-fns";
 
 const displayController = function (dependencies) {
-  const datefns = dependencies.datefns;
   const state = dependencies.state;
   const localStorageHelper = dependencies.localStorageHelper;
   const projectComponent = dependencies.projectComponent;
@@ -50,6 +49,7 @@ const displayController = function (dependencies) {
     projectIdSelect.replaceChildren(...projectElements);
   };
 
+  // possibly bugged and not rendering the correct state of `isDone` boolean properties of todo's?
   const renderTodos = function (todos = defaultTodos) {
     const todoElements = [];
     for (let todo of todos) {
@@ -92,66 +92,75 @@ const displayController = function (dependencies) {
   };
 
   const handleProjectIdSelect = function (event) {
-    // get the selected option value (projectId) from the select
-    // set the currentProjectId to that one in the state
-    // re-render the todos for the current projectId
-    const element = event.target;
+    state.setCurrentProjectId(projectIdSelect.value);
+    renderTodos(
+      state.getTodos({
+        projectId: state.getCurrentProjectId(),
+      })
+    );
   };
 
   const handleNewTodoButton = function (event) {
-    const element = event.target;
-    if (element.dataset.buttonType !== "new-todo") return;
-
     openCreateTodoDialog();
   };
 
+  // TODO - bugged?
   const handleIsDoneCheckbox = function (event) {
     // get the checked value from the checkbox
     // update the state for this existing todo with this id
     // update the state in localStorage
     // re-render the todos for the current project
     const element = event.target;
-    if (element.dataset.checkboxType !== "is-done") return;
+    if (element.dataset.inputType !== "is-done-checkbox") return;
 
     const todoId = element.dataset.todoId;
+    const todo = state.getTodos({ id: todoId })[0];
+    const oldIsDone = todo.isDone;
+    state.updateTodo({ id: todoId, isDone: !oldIsDone });
+    // console.log(
+    //   `Checkbox for todo with id '${todoId}' checked? ${element.checked}`
+    // );
   };
 
   const handleMoreButton = function (event) {
-    // do nothing if a more button was not clicked
-    // get the todo id from the clicked button
-    // expand the todo component's `.expanded-content` div
-    // by toggling the CSS class `.max-h-0` on that div
-    // hide itself (the button)
-    // show the less button associated with the same todo (by id)
+    const todoId = event.target.dataset.todoId;
+    const expandedContentDiv = document.querySelector(
+      `#expanded-content-${todoId}`
+    );
+    expandedContentDiv.classList.toggle("max-h-0");
+    event.target.classList.toggle("hidden");
+    const lessButton = document.querySelector(`#less-button-${todoId}`);
+    lessButton.classList.toggle("hidden");
   };
 
   const handleLessButton = function (event) {
-    // do nothing if a less button was not clicked
-    // get the todo id from the clicked button
-    // shrink the todo component's `.expanded-content` div
-    // by toggling the CSS class `.max-h-0` on that div
-    // hide itself (the button)
-    // show the more button associated with the same todo (by id)
+    const todoId = event.target.dataset.todoId;
+    const expandedContentDiv = document.querySelector(
+      `#expanded-content-${todoId}`
+    );
+    expandedContentDiv.classList.toggle("max-h-0");
+    event.target.classList.toggle("hidden");
+    const moreButton = document.querySelector(`#more-button-${todoId}`);
+    moreButton.classList.toggle("hidden");
   };
 
   const handleEditButton = function (event) {
     const element = event.target;
-    if (element.dataset.buttonType !== "edit") return;
-
     openEditTodoDialog(element.dataset.todoId);
   };
 
   const handleDeleteButton = function (event) {
-    // do nothing if a delete button was not clicked
-    // get the todo id from the clicked button
-    // delete the todo with this id from the state
-    // update the state in localStorage
-    // re-render the todos in the current project
+    const todoId = event.target.dataset.todoId;
+    state.deleteTodo(todoId);
+    // TODO - update localStorage
+    renderTodos(
+      state.getTodos({
+        projectId: state.getCurrentProjectId(),
+      })
+    );
   };
 
   const handleCancelButton = function (event) {
-    const element = event.target;
-    if (element.dataset.buttonType !== "cancel") return;
     todoDialog.close();
   };
 
@@ -167,6 +176,34 @@ const displayController = function (dependencies) {
     //     update the state in the local storage
     //     re-render the projects select with that new project option selected
     //   re-render the todos under the selected project id
+
+    const todoArgs = {
+      id: todoIdInput.value,
+      // projectId: "TODO",
+      title: todoTitleInput.value,
+      dueDate: todoDueDateInput.value,
+      priority: Number.parseInt(todoPriorityInput.value),
+      description: todoDescriptionInput,
+    };
+  };
+
+  const handleClick = function (event) {
+    const element = event.target;
+    if (element.dataset.inputType === "new-todo-button") {
+      handleNewTodoButton(event);
+    } else if (element.dataset.inputType === "cancel-button") {
+      handleCancelButton(event);
+    } else if (element.dataset.inputType === "submit-button") {
+      handleSubmitButton(event);
+    } else if (element.dataset.inputType === "more-button") {
+      handleMoreButton(event);
+    } else if (element.dataset.inputType === "less-button") {
+      handleLessButton(event);
+    } else if (element.dataset.inputType === "edit-button") {
+      handleEditButton(event);
+    } else if (element.dataset.inputType === "delete-button") {
+      handleDeleteButton(event);
+    }
   };
 
   const attachEventListeners = function (containerElement) {
@@ -178,6 +215,10 @@ const displayController = function (dependencies) {
     // - click -> handleNewTodoButton()
     // - click -> handleIsDoneCheckbox() ??
     // - change? -> handleProjectIdSelect()
+
+    containerElement.addEventListener("click", handleClick);
+    containerElement.addEventListener("change", handleIsDoneCheckbox);
+    projectIdSelect.addEventListener("change", handleProjectIdSelect);
   };
 
   return {
