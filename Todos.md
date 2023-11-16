@@ -36,7 +36,7 @@
   - [x] Fix bug with `isDone` boolean property of `Todo`'s not rendering correctly as checked or unchecked checkbox inputs in GUI
   - [x] Complete project `submit` button (on form) functionality
   - [x] Fix issue with todo `description` textarea input's text content not updating correctly
-  - [ ] Add basic validation for todo form
+  - [x] Add basic validation for todo form
 - [x] Update todo form to include select dropdown input for selected project
 - [ ] Add loading from `localStorage` functionality
 - [ ] Add updating store in `localStorage` functionality on state change

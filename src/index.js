@@ -64,6 +64,7 @@ window.addEventListener("load", function () {
     projectIdSelect: document.querySelector("#project-id"),
     todosRootDiv: document.querySelector("#todos-root"),
     todoDialog: document.querySelector("#todo-dialog"),
+    todoForm: document.querySelector("#todo-form"),
     todoFormHeader: document.querySelector("#todo-form-header"),
     todoActionTypeInput: document.querySelector("#todo-action-type"),
     todoIdInput: document.querySelector("#todo-id"),

@@ -10,6 +10,7 @@ const displayController = function (dependencies) {
   const projectIdSelect = dependencies.projectIdSelect;
   const todosRootDiv = dependencies.todosRootDiv;
   const todoDialog = dependencies.todoDialog;
+  const todoForm = dependencies.todoForm;
   const todoFormHeader = dependencies.todoFormHeader;
   const todoActionTypeInput = dependencies.todoActionTypeInput;
   const todoIdInput = dependencies.todoIdInput;
@@ -79,6 +80,10 @@ const displayController = function (dependencies) {
       priorityElements.push(priorityComponent(priority));
     }
     todoPriorityInput.replaceChildren(...priorityElements);
+  };
+
+  const isValidTodoFormInput = function () {
+    return todoForm.checkValidity();
   };
 
   const openCreateTodoDialog = function () {
@@ -189,18 +194,6 @@ const displayController = function (dependencies) {
   };
 
   const handleTodoSubmitButton = function (event) {
-    // do nothing if the submit button was not clicked
-    // if the form was submitted as a create todo (has a hidden input with value "create")
-    //   create a new todo with the data in the form
-    //   update the state
-    //   update the state in local storage
-    //   if the new todo was created with a new project name
-    //     create a new project with that name
-    //     set the current project id with that new project id in the state
-    //     update the state in the local storage
-    //     re-render the projects select with that new project option selected
-    //   re-render the todos under the selected project id
-
     const todoArgs = {
       projectId: todoProjectIdInput.value,
       title: todoTitleInput.value,
@@ -210,11 +203,11 @@ const displayController = function (dependencies) {
     };
 
     const action = todoActionTypeInput.value;
-    if (action === "create") {
+    if (action === "create" && isValidTodoFormInput()) {
       todoArgs.isDone = false;
       state.createTodo(todoArgs);
       state.setCurrentProjectId(todoArgs.projectId);
-    } else if (action === "edit") {
+    } else if (action === "edit" && isValidTodoFormInput()) {
       todoArgs.id = todoIdInput.value;
       state.updateTodo(todoArgs);
       state.setCurrentProjectId(todoArgs.projectId);
