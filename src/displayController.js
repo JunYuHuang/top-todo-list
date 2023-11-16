@@ -1,9 +1,7 @@
 "use strict";
-import { format } from "date-fns";
 
 const displayController = function (dependencies) {
   const state = dependencies.state;
-  const localStorageHelper = dependencies.localStorageHelper;
   const projectComponent = dependencies.projectComponent;
   const todoComponent = dependencies.todoComponent;
   const priorityComponent = dependencies.priorityComponent;
@@ -143,7 +141,6 @@ const displayController = function (dependencies) {
         projectId: state.getCurrentProjectId(),
       })
     );
-    // update the state in localStorage
   };
 
   const handleTodoMoreButton = function (event) {
@@ -181,7 +178,6 @@ const displayController = function (dependencies) {
   const handleTodoDeleteButton = function (event) {
     const todoId = event.target.dataset.todoId;
     state.deleteTodo(todoId);
-    // TODO - update localStorage
     renderTodos(
       state.getTodos({
         projectId: state.getCurrentProjectId(),
@@ -212,7 +208,6 @@ const displayController = function (dependencies) {
       state.updateTodo(todoArgs);
       state.setCurrentProjectId(todoArgs.projectId);
     }
-    // update localstorage
     renderSelectProjects();
     renderTodos(
       state.getTodos({
@@ -232,7 +227,6 @@ const displayController = function (dependencies) {
     const doesProjectExist = state.doesProjectExist(projectArgs.name);
     if (isValidName && !doesProjectExist) {
       state.createProject(projectArgs);
-      // update localStorage
       renderSelectProjects();
     }
     projectDialog.close();

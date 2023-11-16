@@ -47,17 +47,19 @@ let dummyProjects = [
 ];
 
 const appState = state({
+  localStorageHelper: localStorageHelper,
   getRandomId: uuidv4,
   projectClass: Project,
   todoClass: Todo,
-  projects: dummyProjects,
-  todos: dummyTodos,
+  // projects: dummyProjects,
+  // todos: dummyTodos,
 });
 
 window.addEventListener("load", function () {
+  appState.loadFromLocalStorage();
+
   const appDisplayController = displayController({
     state: appState,
-    localStorageHelper: localStorageHelper,
     projectComponent: projectComponent,
     todoComponent: todoComponent,
     priorityComponent: priorityComponent,
@@ -77,8 +79,8 @@ window.addEventListener("load", function () {
     projectNameInput: document.querySelector("#project-name"),
   });
 
-  // TESTING
   appDisplayController.attachEventListeners(window);
   appDisplayController.renderSelectProjects();
+  appDisplayController.renderInputProjects();
   appDisplayController.renderTodos();
 });

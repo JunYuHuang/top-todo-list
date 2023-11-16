@@ -1,6 +1,8 @@
 "use strict";
 
 const state = function (dependencies) {
+  let isDebugMode = dependencies.hasOwnProperty("isDebugMode") ? true : false;
+  const localStorageHelper = dependencies.localStorageHelper;
   const getRandomId = dependencies.getRandomId;
   const projectClass = dependencies.projectClass;
   const todoClass = dependencies.todoClass;
@@ -14,6 +16,14 @@ const state = function (dependencies) {
   let todos = dependencies.todos ? dependencies.todos : [];
   let currentProjectId = defaultProject.id;
 
+  const log = function () {
+    console.log("Current App State", {
+      projects,
+      todos,
+      currentProjectId,
+    });
+  };
+
   const getCurrentProjectId = function () {
     return currentProjectId;
   };
@@ -21,6 +31,7 @@ const state = function (dependencies) {
   const setCurrentProjectId = function (id) {
     if (id === currentProjectId) return;
     currentProjectId = id;
+    if (isDebugMode) log();
   };
 
   const isCurrentProject = function (project) {
@@ -28,6 +39,7 @@ const state = function (dependencies) {
   };
 
   const getTodos = function (filters = {}) {
+    if (isDebugMode) log();
     if (filters.projectId) {
       return todos.filter((todo) => todo.projectId === filters.projectId);
     }
@@ -39,11 +51,14 @@ const state = function (dependencies) {
 
   const setTodos = function (newTodos) {
     todos = newTodos;
+    if (isDebugMode) log();
   };
 
   const createTodo = function (args) {
     args.id = `todo-${getRandomId()}`;
     todos.push(new todoClass(args));
+    localStorageHelper.storeList(todoClass, todos);
+    if (isDebugMode) log();
   };
 
   const updateTodo = function (options) {
@@ -52,6 +67,8 @@ const state = function (dependencies) {
     if (pos === -1) return;
 
     todos[pos].update(options);
+    localStorageHelper.storeList(todoClass, todos);
+    if (isDebugMode) log();
   };
 
   const deleteTodo = function (id) {
@@ -60,27 +77,43 @@ const state = function (dependencies) {
     if (pos === -1) return;
 
     todos.splice(pos, 1);
+    localStorageHelper.storeList(todoClass, todos);
+    if (isDebugMode) log();
   };
 
   const getProjects = function () {
+    if (isDebugMode) log();
     return projects;
   };
 
   const setProjects = function (newProjects) {
     projects = newProjects;
+    if (isDebugMode) log();
   };
 
   const createProject = function (args) {
     args.id = `project-${getRandomId()}`;
     projects.push(new projectClass(args));
+    localStorageHelper.storeList(projectClass, projects);
+    if (isDebugMode) log();
   };
 
   const doesProjectExist = function (name) {
     name = name.toUpperCase();
+    if (isDebugMode) log();
     return projects.some((project) => project.name.toUpperCase() === name);
   };
 
+  const loadFromLocalStorage = function () {
+    const projectsInLS = localStorageHelper.getList(projectClass);
+    const todosInLS = localStorageHelper.getList(todoClass);
+    if (projectsInLS.length > 0) setProjects(projectsInLS);
+    if (todosInLS.length > 0) setTodos(todosInLS);
+    if (isDebugMode) log();
+  };
+
   return {
+    loadFromLocalStorage,
     getCurrentProjectId,
     setCurrentProjectId,
     isCurrentProject,
@@ -93,8 +126,6 @@ const state = function (dependencies) {
     setProjects,
     createProject,
     doesProjectExist,
-    projectClass,
-    todoClass,
   };
 };
 
