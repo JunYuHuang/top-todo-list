@@ -13,6 +13,7 @@ const displayController = function (dependencies) {
   const todoFormHeader = dependencies.todoFormHeader;
   const todoActionTypeInput = dependencies.todoActionTypeInput;
   const todoIdInput = dependencies.todoIdInput;
+  const todoProjectIdInput = dependencies.todoProjectIdInput;
   const todoTitleInput = dependencies.todoTitleInput;
   const todoDueDateInput = dependencies.todoDueDateInput;
   const todoPriorityInput = dependencies.todoPriorityInput;
@@ -37,7 +38,7 @@ const displayController = function (dependencies) {
     return res;
   };
 
-  const renderProjects = function (projects = state.getProjects()) {
+  const renderSelectProjects = function (projects = state.getProjects()) {
     const projectElements = [];
     for (let project of projects) {
       const args = {
@@ -48,6 +49,19 @@ const displayController = function (dependencies) {
       projectElements.push(projectComponent(args));
     }
     projectIdSelect.replaceChildren(...projectElements);
+  };
+
+  const renderInputProjects = function (projects = state.getProjects()) {
+    const projectElements = [];
+    for (let project of projects) {
+      const args = {
+        id: project.id,
+        name: project.name,
+        isCurrent: state.isCurrentProject(project),
+      };
+      projectElements.push(projectComponent(args));
+    }
+    todoProjectIdInput.replaceChildren(...projectElements);
   };
 
   const renderTodos = function (todos = defaultTodos) {
@@ -70,6 +84,7 @@ const displayController = function (dependencies) {
   const openCreateTodoDialog = function () {
     todoFormHeader.textContent = "Create Todo";
     todoActionTypeInput.value = "create";
+    renderInputProjects();
     todoIdInput.value = "";
     todoTitleInput.value = "";
     todoDueDateInput.value = "";
@@ -84,6 +99,8 @@ const displayController = function (dependencies) {
     todoFormHeader.textContent = "Edit Todo";
     todoActionTypeInput.value = "edit";
     todoIdInput.value = id;
+    state.setCurrentProjectId(todo.projectId);
+    renderInputProjects();
     todoTitleInput.value = title;
     todoDueDateInput.value = dueDate;
     renderPriorities(getPrioritiesList(priority));
@@ -116,6 +133,11 @@ const displayController = function (dependencies) {
     const todo = state.getTodos({ id: todoId })[0];
     const oldIsDone = todo.isDone;
     state.updateTodo({ id: todoId, isDone: !oldIsDone });
+    renderTodos(
+      state.getTodos({
+        projectId: state.getCurrentProjectId(),
+      })
+    );
     // update the state in localStorage
   };
 
@@ -142,6 +164,7 @@ const displayController = function (dependencies) {
   };
 
   const handleProjectNewButton = function (event) {
+    projectNameInput.value = "";
     openCreateProjectDialog();
   };
 
@@ -179,13 +202,31 @@ const displayController = function (dependencies) {
     //   re-render the todos under the selected project id
 
     const todoArgs = {
-      id: todoIdInput.value,
-      // projectId: "TODO",
+      projectId: todoProjectIdInput.value,
       title: todoTitleInput.value,
       dueDate: todoDueDateInput.value,
       priority: Number.parseInt(todoPriorityInput.value),
-      description: todoDescriptionInput,
+      description: todoDescriptionInput.textContent,
     };
+
+    const action = todoActionTypeInput.value;
+    if (action === "create") {
+      todoArgs.isDone = false;
+      state.createTodo(todoArgs);
+      state.setCurrentProjectId(todoArgs.projectId);
+    } else if (action === "edit") {
+      todoArgs.id = todoIdInput.value;
+      state.updateTodo(todoArgs);
+      state.setCurrentProjectId(todoArgs.projectId);
+    }
+    // update localstorage
+    renderSelectProjects();
+    renderTodos(
+      state.getTodos({
+        projectId: state.getCurrentProjectId(),
+      })
+    );
+    todoDialog.close();
   };
 
   const handleProjectCancelButton = function (event) {
@@ -193,10 +234,15 @@ const displayController = function (dependencies) {
   };
 
   const handleProjectSubmitButton = function (event) {
-    // create new project
-    // update state (projects, currentProjectId)
-    // update localStorage
-    // re-render projects component (select options)
+    const projectArgs = { name: projectNameInput.value };
+    const isValidName = projectArgs.name.replace(/\s/g, "").length > 0;
+    const doesProjectExist = state.doesProjectExist(projectArgs.name);
+    if (isValidName && !doesProjectExist) {
+      state.createProject(projectArgs);
+      // update localStorage
+      renderSelectProjects();
+    }
+    projectDialog.close();
   };
 
   const handleClick = function (event) {
@@ -231,7 +277,8 @@ const displayController = function (dependencies) {
   };
 
   return {
-    renderProjects,
+    renderSelectProjects,
+    renderInputProjects,
     renderTodos,
     openCreateTodoDialog,
     openEditTodoDialog,

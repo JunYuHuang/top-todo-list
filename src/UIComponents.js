@@ -34,14 +34,20 @@ const todoComponent = function (args) {
         />
       </div>
       <div class="">
-        <p class="text-ellipsis">${title}</p>
-        <p class="text-ellipsis">Due on ${dueDate}</p>
+        <p class="text-ellipsis ${isDone ? "line-through" : ""}">${title}</p>
+        <p class="text-ellipsis ${
+          isDone ? "line-through" : ""
+        }">Due on ${dueDate}</p>
         <div
           class="expanded-content overflow-hidden max-h-0"
           id="expanded-content-${id}"
         >
-          <p class="text-ellipsis">Priority ${priority}</p>
-          <p class="text-ellipsis">${description}</p>
+          <p class="text-ellipsis ${
+            isDone ? "line-through" : ""
+          }">Priority ${priority}</p>
+          <p class="text-ellipsis ${
+            isDone ? "line-through" : ""
+          }">${description}</p>
         </div>
       </div>
     </div>

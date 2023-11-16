@@ -76,7 +76,8 @@ const state = function (dependencies) {
   };
 
   const doesProjectExist = function (name) {
-    return projects.some((project) => project.name === name);
+    name = name.toUpperCase();
+    return projects.some((project) => project.name.toUpperCase() === name);
   };
 
   return {

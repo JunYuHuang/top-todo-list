@@ -67,6 +67,7 @@ window.addEventListener("load", function () {
     todoFormHeader: document.querySelector("#todo-form-header"),
     todoActionTypeInput: document.querySelector("#todo-action-type"),
     todoIdInput: document.querySelector("#todo-id"),
+    todoProjectIdInput: document.querySelector("#todo-project-id"),
     todoTitleInput: document.querySelector("#todo-title"),
     todoDueDateInput: document.querySelector("#todo-due-date"),
     todoPriorityInput: document.querySelector("#todo-priority"),
@@ -77,7 +78,6 @@ window.addEventListener("load", function () {
 
   // TESTING
   appDisplayController.attachEventListeners(window);
-  appDisplayController.renderProjects();
+  appDisplayController.renderSelectProjects();
   appDisplayController.renderTodos();
-  // appDisplayController.openCreateTodoDialog();
 });
