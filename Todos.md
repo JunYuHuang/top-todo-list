@@ -27,16 +27,14 @@
 - [ ] Complete `displayController.js` module
   - [x] Complete `project` id select / dropdown functionality
   - [x] Complete `new todo` button functionality
-  - [x] Complete `more` button functionality
-  - [x] Complete `less` button functionality
-  - [x] Complete `edit` button functionality
-  - [x] Complete `delete` button functionality
-  - [x] Complete `cancel` button (on form) functionality
-  - [ ] Complete `submit` button (on form) functionality
+  - [x] Complete todo `more` button functionality
+  - [x] Complete todo `less` button functionality
+  - [x] Complete todo `edit` button functionality
+  - [x] Complete todo `delete` button functionality
+  - [x] Complete todo `cancel` button (on form) functionality
+  - [ ] Complete todo `submit` button (on form) functionality
   - [x] Fix bug with `isDone` boolean property of `Todo`'s not rendering correctly as checked or unchecked checkbox inputs in GUI
-  - [ ] Update todo form to include a select dropdown for an existing project
-  - [ ] Update todo form to include a text input for entering the name of a new project
-  - [ ] Finish `handleSubmitButton()` function in `displayController.js`
+  - [ ] Complete project `submit` button (on form) functionality
 - [ ] Add loading from `localStorage` functionality
 - [ ] Add updating store in `localStorage` functionality on state change
 - [ ] Test app manually

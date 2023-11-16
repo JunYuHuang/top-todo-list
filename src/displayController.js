@@ -10,7 +10,6 @@ const displayController = function (dependencies) {
   const projectIdSelect = dependencies.projectIdSelect;
   const todosRootDiv = dependencies.todosRootDiv;
   const todoDialog = dependencies.todoDialog;
-  const todoForm = dependencies.todoForm;
   const todoFormHeader = dependencies.todoFormHeader;
   const todoActionTypeInput = dependencies.todoActionTypeInput;
   const todoIdInput = dependencies.todoIdInput;
@@ -18,6 +17,8 @@ const displayController = function (dependencies) {
   const todoDueDateInput = dependencies.todoDueDateInput;
   const todoPriorityInput = dependencies.todoPriorityInput;
   const todoDescriptionInput = dependencies.todoDescriptionInput;
+  const projectDialog = dependencies.projectDialog;
+  const projectNameInput = dependencies.projectNameInput;
   const defaultTodos = state.getTodos({
     projectId: state.getCurrentProjectId(),
   });
@@ -90,6 +91,11 @@ const displayController = function (dependencies) {
     todoDialog.showModal();
   };
 
+  const openCreateProjectDialog = function () {
+    projectNameInput.value = "";
+    projectDialog.showModal();
+  };
+
   const handleProjectIdSelect = function (event) {
     state.setCurrentProjectId(projectIdSelect.value);
     renderTodos(
@@ -99,7 +105,7 @@ const displayController = function (dependencies) {
     );
   };
 
-  const handleNewTodoButton = function (event) {
+  const handleTodoNewButton = function (event) {
     openCreateTodoDialog();
   };
 
@@ -113,34 +119,38 @@ const displayController = function (dependencies) {
     // update the state in localStorage
   };
 
-  const handleMoreButton = function (event) {
+  const handleTodoMoreButton = function (event) {
     const todoId = event.target.dataset.todoId;
     const expandedContentDiv = document.querySelector(
       `#expanded-content-${todoId}`
     );
     expandedContentDiv.classList.toggle("max-h-0");
     event.target.classList.toggle("hidden");
-    const lessButton = document.querySelector(`#less-button-${todoId}`);
+    const lessButton = document.querySelector(`#todo-less-button-${todoId}`);
     lessButton.classList.toggle("hidden");
   };
 
-  const handleLessButton = function (event) {
+  const handleTodoLessButton = function (event) {
     const todoId = event.target.dataset.todoId;
     const expandedContentDiv = document.querySelector(
       `#expanded-content-${todoId}`
     );
     expandedContentDiv.classList.toggle("max-h-0");
     event.target.classList.toggle("hidden");
-    const moreButton = document.querySelector(`#more-button-${todoId}`);
+    const moreButton = document.querySelector(`#todo-more-button-${todoId}`);
     moreButton.classList.toggle("hidden");
   };
 
-  const handleEditButton = function (event) {
+  const handleProjectNewButton = function (event) {
+    openCreateProjectDialog();
+  };
+
+  const handleTodoEditButton = function (event) {
     const element = event.target;
     openEditTodoDialog(element.dataset.todoId);
   };
 
-  const handleDeleteButton = function (event) {
+  const handleTodoDeleteButton = function (event) {
     const todoId = event.target.dataset.todoId;
     state.deleteTodo(todoId);
     // TODO - update localStorage
@@ -151,11 +161,11 @@ const displayController = function (dependencies) {
     );
   };
 
-  const handleCancelButton = function (event) {
+  const handleTodoCancelButton = function (event) {
     todoDialog.close();
   };
 
-  const handleSubmitButton = function (event) {
+  const handleTodoSubmitButton = function (event) {
     // do nothing if the submit button was not clicked
     // if the form was submitted as a create todo (has a hidden input with value "create")
     //   create a new todo with the data in the form
@@ -178,35 +188,43 @@ const displayController = function (dependencies) {
     };
   };
 
+  const handleProjectCancelButton = function (event) {
+    projectDialog.close();
+  };
+
+  const handleProjectSubmitButton = function (event) {
+    // create new project
+    // update state (projects, currentProjectId)
+    // update localStorage
+    // re-render projects component (select options)
+  };
+
   const handleClick = function (event) {
     const element = event.target;
-    if (element.dataset.inputType === "new-todo-button") {
-      handleNewTodoButton(event);
-    } else if (element.dataset.inputType === "cancel-button") {
-      handleCancelButton(event);
-    } else if (element.dataset.inputType === "submit-button") {
-      handleSubmitButton(event);
-    } else if (element.dataset.inputType === "more-button") {
-      handleMoreButton(event);
-    } else if (element.dataset.inputType === "less-button") {
-      handleLessButton(event);
-    } else if (element.dataset.inputType === "edit-button") {
-      handleEditButton(event);
-    } else if (element.dataset.inputType === "delete-button") {
-      handleDeleteButton(event);
+    if (element.dataset.inputType === "todo-new-button") {
+      handleTodoNewButton(event);
+    } else if (element.dataset.inputType === "todo-cancel-button") {
+      handleTodoCancelButton(event);
+    } else if (element.dataset.inputType === "todo-submit-button") {
+      handleTodoSubmitButton(event);
+    } else if (element.dataset.inputType === "todo-more-button") {
+      handleTodoMoreButton(event);
+    } else if (element.dataset.inputType === "todo-less-button") {
+      handleTodoLessButton(event);
+    } else if (element.dataset.inputType === "todo-edit-button") {
+      handleTodoEditButton(event);
+    } else if (element.dataset.inputType === "todo-delete-button") {
+      handleTodoDeleteButton(event);
+    } else if (element.dataset.inputType === "project-new-button") {
+      handleProjectNewButton(event);
+    } else if (element.dataset.inputType === "project-cancel-button") {
+      handleProjectCancelButton(event);
+    } else if (element.dataset.inputType === "project-submit-button") {
+      handleProjectSubmitButton(event);
     }
   };
 
   const attachEventListeners = function (containerElement) {
-    // attach the following event handlers to the `containerElement`:
-    // - click -> handleMoreButton()
-    // - click -> handleLessButton()
-    // - click -> handleEditButton()
-    // - click -> handleDeleteButton()
-    // - click -> handleNewTodoButton()
-    // - click -> handleIsDoneCheckbox() ??
-    // - change? -> handleProjectIdSelect()
-
     containerElement.addEventListener("click", handleClick);
     containerElement.addEventListener("change", handleIsDoneCheckbox);
     projectIdSelect.addEventListener("change", handleProjectIdSelect);
@@ -215,6 +233,8 @@ const displayController = function (dependencies) {
   return {
     renderProjects,
     renderTodos,
+    openCreateTodoDialog,
+    openEditTodoDialog,
     renderPriorities,
     attachEventListeners,
   };

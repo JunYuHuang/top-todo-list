@@ -52,7 +52,6 @@ const state = function (dependencies) {
     if (pos === -1) return;
 
     todos[pos].update(options);
-    console.log(`Updated todo`, todos[pos]);
   };
 
   const deleteTodo = function (id) {

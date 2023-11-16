@@ -48,8 +48,8 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-input-type="more-button"
-      id="more-button-${id}"
+      data-input-type="todo-more-button"
+      id="todo-more-button-${id}"
       data-todo-id="${id}"
     >
       More
@@ -57,8 +57,8 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2 hidden"
-      data-input-type="less-button"
-      id="less-button-${id}"
+      data-input-type="todo-less-button"
+      id="todo-less-button-${id}"
       data-todo-id="${id}"
     >
       Less
@@ -66,7 +66,7 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-input-type="edit-button"
+      data-input-type="todo-edit-button"
       data-todo-id="${id}"
     >
       Edit
@@ -74,7 +74,7 @@ const todoComponent = function (args) {
     <button
       type="button"
       class="border-black border-2 rounded-lg p-2"
-      data-input-type="delete-button"
+      data-input-type="todo-delete-button"
       data-todo-id="${id}"
     >
       Delete

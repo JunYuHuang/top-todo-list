@@ -9,29 +9,32 @@
   <body>
     <main class="flex flex-col items-center min-h-screen bg-red-200">
       <div class="max-w-screen-sm min-w-[200px]" id="app-root">
-        <h1 class="text-6xl uppercase mb-4 mt-4">Todo List</h1>
-        <div class="">
-          <label for="project-id" class="">
-            <h2 class="text-2xl mb-2">Current Project</h2>
-          </label>
+        <h1 class="text-6xl uppercase mb-8 mt-4">Todo List</h1>
+        <h2 class="text-2xl mb-4">Projects</h2>
+        <button
+          type="button"
+          class="border-black border-2 rounded-lg p-2 bg-[#e9e9ed]"
+          data-input-type="project-new-button"
+        >
+          New Project
+        </button>
+        <br />
+        <div class="mt-2">
+          <label for="project-id" class="">Current Project:</label>
+          <br />
           <select
             name="project-id"
             id="project-id"
             class="border-black border-2 rounded-lg p-2"
-          >
-            <!-- <option selected value="project-default" class="">
-              Uncategorized
-            </option> -->
-          </select>
+          ></select>
           <br />
           <br />
         </div>
-        <h2 class="text-2xl mb-2">Todos</h2>
+        <h2 class="text-2xl mb-4">Todos</h2>
         <button
           type="button"
           class="border-black border-2 rounded-lg p-2 bg-[#e9e9ed]"
-          id="new-todo-button"
-          data-input-type="new-todo-button"
+          data-input-type="todo-new-button"
         >
           New Todo
         </button>
@@ -41,16 +44,16 @@
       <dialog class="p-8 rounded-lg" id="todo-dialog">
         <form action="/" method="dialog" class="" id="todo-form">
           <h2 class="text-lg font-bold" id="todo-form-header">Todo</h2>
-          <input type="hidden" value="create" id="action-type" />
+          <input type="hidden" value="create" id="todo-action-type" />
           <input type="hidden" value="" id="todo-id" />
           <br />
           <div class="">
-            <label for="title" class="">Title:</label>
+            <label for="todo-title" class="">Title:</label>
             <br />
             <input
               type="text"
-              name="title"
-              id="title"
+              name="todo-title"
+              id="todo-title"
               class="border-black border-2 rounded-lg p-2"
               required
             />
@@ -58,12 +61,12 @@
             <br />
           </div>
           <div class="">
-            <label for="due-date" class="">Due Date:</label>
+            <label for="todo-due-date" class="">Due Date:</label>
             <br />
             <input
               type="date"
-              name="due-date"
-              id="due-date"
+              name="todo-due-date"
+              id="todo-due-date"
               class="border-black border-2 rounded-lg p-2"
               required
             />
@@ -71,11 +74,11 @@
             <br />
           </div>
           <div class="">
-            <label for="priority" class="">Priority:</label>
+            <label for="todo-priority" class="">Priority:</label>
             <br />
             <select
-              name="priority"
-              id="priority"
+              name="todo-priority"
+              id="todo-priority"
               class="border-black border-2 rounded-lg p-2"
             >
               <option value="1" class="">1</option>
@@ -87,11 +90,11 @@
             <br />
           </div>
           <div class="">
-            <label for="description" class="">Description:</label>
+            <label for="todo-description" class="">Description:</label>
             <br />
             <textarea
-              name="description"
-              id="description"
+              name="todo-description"
+              id="todo-description"
               class="border-black border-2 rounded-lg p-2"
             ></textarea>
             <br />
@@ -100,16 +103,49 @@
           <button
             type="button"
             class="border-black border-2 rounded-lg p-2"
-            id="cancel-button"
-            data-input-type="cancel-button"
+            data-input-type="todo-cancel-button"
           >
             Cancel
           </button>
           <button
             type="submit"
             class="border-black border-2 rounded-lg p-2"
-            id="action-button"
-            data-input-type="submit-button"
+            data-input-type="todo-submit-button"
+          >
+            Submit
+          </button>
+        </form>
+      </dialog>
+      <dialog class="p-8 rounded-lg" id="project-dialog">
+        <form action="/" method="dialog" class="" id="project-form">
+          <h2 class="text-lg font-bold" id="project-form-header">
+            Create Project
+          </h2>
+          <br />
+          <div class="">
+            <label for="project-name" class="">Name:</label>
+            <br />
+            <input
+              type="text"
+              name="project-name"
+              id="project-name"
+              class="border-black border-2 rounded-lg p-2"
+              required
+            />
+            <br />
+            <br />
+          </div>
+          <button
+            type="button"
+            class="border-black border-2 rounded-lg p-2"
+            data-input-type="project-cancel-button"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="border-black border-2 rounded-lg p-2"
+            data-input-type="project-submit-button"
           >
             Submit
           </button>

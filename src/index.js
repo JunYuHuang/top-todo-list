@@ -65,16 +65,19 @@ window.addEventListener("load", function () {
     todosRootDiv: document.querySelector("#todos-root"),
     todoDialog: document.querySelector("#todo-dialog"),
     todoFormHeader: document.querySelector("#todo-form-header"),
-    todoActionTypeInput: document.querySelector("#action-type"),
+    todoActionTypeInput: document.querySelector("#todo-action-type"),
     todoIdInput: document.querySelector("#todo-id"),
-    todoTitleInput: document.querySelector("#title"),
-    todoDueDateInput: document.querySelector("#due-date"),
-    todoPriorityInput: document.querySelector("#priority"),
-    todoDescriptionInput: document.querySelector("#description"),
+    todoTitleInput: document.querySelector("#todo-title"),
+    todoDueDateInput: document.querySelector("#todo-due-date"),
+    todoPriorityInput: document.querySelector("#todo-priority"),
+    todoDescriptionInput: document.querySelector("#todo-description"),
+    projectDialog: document.querySelector("#project-dialog"),
+    projectNameInput: document.querySelector("#project-name"),
   });
 
   // TESTING
   appDisplayController.attachEventListeners(window);
   appDisplayController.renderProjects();
   appDisplayController.renderTodos();
+  // appDisplayController.openCreateTodoDialog();
 });
